@@ -20,13 +20,15 @@ export default function HeroSection() {
           </p>
         </div>
 
-        <Image
-          src={"/hero-bg.jpg"}
-          width={2000}
-          height={2000}
-          alt="Image"
-          className="max-h-[567px] rounded-xl"
-        />
+        <span className="relative aspect-[1271/567]">
+          <Image
+            src={"/about-us-hero-bg.png"}
+            fill
+            objectFit="cover"
+            objectPosition="center"
+            alt="Image"
+          />
+        </span>
       </div>
     </section>
   );
