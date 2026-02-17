@@ -26,7 +26,7 @@ export default function HeroSection() {
     <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 sm:py-20">
       <div className="container mx-auto grid gap-10">
         <div className="text-center max-w-3xl mx-auto grid gap-5">
-          <h1 className="font-playfair-display text-6xl font-semibold">
+          <h1 className="font-playfair-display text-5xl sm:text-6xl font-semibold">
             Contact us.
           </h1>
           <p className="text-lg">

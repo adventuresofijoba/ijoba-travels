@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./card";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
+import Link from "next/link";
 
 export default function ExploreSection() {
   return (
@@ -22,10 +23,12 @@ export default function ExploreSection() {
           ))}
         </div>
 
-        <Button className="w-max mx-auto mt-10">
-          Explore Packages
-          <Icon icon={"ep:right"} width="24" />
-        </Button>
+        <Link href={"/packages"} className="w-max mx-auto mt-10">
+          <Button>
+            Explore Packages
+            <Icon icon={"ep:right"} width="24" />
+          </Button>
+        </Link>
       </div>
     </section>
   );

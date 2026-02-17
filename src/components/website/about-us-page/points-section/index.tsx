@@ -4,10 +4,10 @@ import React from "react";
 export default function PointsSection() {
   return (
     <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 sm:py-20">
-      <div className="container mx-auto grid gap-10">
+      <div className="container mx-auto grid gap-10 sm:gap-20">
         {/* point one */}
         <div className="grid lg:grid-cols-2 items-center gap-5">
-          <p className="text-xl pr-28">
+          <p className="text-lg sm:text-xl lg:text-2xl lg:pr-28">
             Ijoba Travels is the creative brainchild of Adventures of Ijoba, a
             brand that began as a traveler&apos;s way of sharing authentic
             travel stories and experiences. What began as a journey of
@@ -16,7 +16,7 @@ export default function PointsSection() {
             transforming inspiration into action by designing curated trips for
             travelers seeking more than the ordinary.
           </p>
-          <span className="relative aspect-[1271/1032] rounded-xl overflow-hidden">
+          <span className="relative max-h-96 w-full aspect-[1271/1032] rounded-xl overflow-hidden">
             <Image
               src={"/about-us-img-1.png"}
               fill
@@ -28,7 +28,7 @@ export default function PointsSection() {
         </div>
         {/* point Two */}
         <div className="grid lg:grid-cols-2 gap-5 items-center">
-          <span className="relative aspect-[1271/1032] rounded-xl overflow-hidden order-1 lg:order-none">
+          <span className="relative w-full max-h-96 aspect-[1271/1032] rounded-xl overflow-hidden order-1 lg:order-none">
             <Image
               src={"/about-us-img-2.png"}
               fill
@@ -37,7 +37,7 @@ export default function PointsSection() {
               alt="Image"
             />
           </span>
-          <p className="text-xl pl-28">
+          <p className="text-lg sm:text-xl lg:text-2xl lg:pl-28">
             Today, we bring that same personal touch into every trip we plan.
             Whether it&apos;s a weekend escape within Nigeria, a cultural
             journey across Africa, or an international adventure beyond, Ijoba

@@ -1,8 +1,28 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 export default function HeroSection() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      router.push(`/destinations?search=${encodeURIComponent(searchQuery)}`);
+    } else {
+      router.push("/destinations");
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <section className="max-h-[640px] sm:max-h-[768px] h-screen grid overflow-hidden relative bg-[url(/hero-bg.jpg)] bg-cover bg-center">
       <div className="bg-black/60 grid gap-10 content-end justify-center text-white text-center pb-16 sm:pb-32 px-layout-spacing-xs">
@@ -19,12 +39,13 @@ export default function HeroSection() {
           <Icon icon={"akar-icons:location"} width="20" color="#2d2d2d" />
           <input
             type="text"
-            name=""
-            id=""
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Where do you want to go?"
-            className="outline-none w-full placeholder:text-black text-black"
+            className="outline-none w-full placeholder:text-black text-black bg-transparent"
           />
-          <Button>
+          <Button onClick={handleSearch}>
             Search
             <Icon icon={"ep:right"} width="16" />
           </Button>

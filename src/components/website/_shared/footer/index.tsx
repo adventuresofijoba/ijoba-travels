@@ -30,7 +30,7 @@ export default function Footer() {
 
         <div className="col-[-1/1] row-[-1/1] container mx-auto w-full px-layout-spacing-xs text-white self-end relative grid gap-5 min-[480px]:gap-10 sm:gap-3 md:gap-5 pb-10 sm:pb-5 lg:pb-10 min-[480px]:text-lg sm:text-sm lg:text-base">
           <div className="grid gap-5 min-[480px]:gap-10 sm:gap-5 sm:flex sm:justify-between items-center">
-            <div className="flex items-center gap-5 mx-auto sm:mx-0">
+            <div className="flex flex-wrap justify-center items-center gap-5 mx-auto sm:mx-0">
               <div className="flex items-center gap-1">
                 <Icon icon="fluent:mail-28-regular" width="20" height="20" />
                 <Link
@@ -40,7 +40,10 @@ export default function Footer() {
                   support@ijoba.travel
                 </Link>
               </div>
-              <p>+234 810 253 1877</p>
+              <div className="flex items-center gap-1">
+                <Icon icon="fluent:call-28-regular" width="20" height="20" />
+                <p>+234 810 253 1877</p>
+              </div>
             </div>
 
             <div className="flex items-center gap-5 mx-auto sm:mx-0">

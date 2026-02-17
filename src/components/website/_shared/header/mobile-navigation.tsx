@@ -20,17 +20,22 @@ export default function MobileNavigation({
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("overflow-hidden");
-      setVariantState("variant-2");
     } else {
       document.body.classList.remove("overflow-hidden");
-      setVariantState(defaultVariantState);
     }
 
-    // Clean up when component unmounts
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setVariantState("variant-2");
+    } else {
+      setVariantState(defaultVariantState);
+    }
+  }, [isOpen, defaultVariantState, setVariantState]);
 
   return (
     <>

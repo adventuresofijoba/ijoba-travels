@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import { Icon } from "@iconify/react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Card() {
   return (
@@ -31,6 +33,13 @@ export default function Card() {
             diverse cuisine, cutting-edge technology, and vibrant nightlife.
           </p>
         </div>
+
+        <Link href={"/destinations/1"}>
+          <Button className="w-max">
+            View more
+            <Icon icon={"ep:right"} width="16" />
+          </Button>
+        </Link>
       </div>
     </div>
   );

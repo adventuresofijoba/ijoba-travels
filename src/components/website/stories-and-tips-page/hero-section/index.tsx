@@ -15,7 +15,7 @@ export default function HeroSection() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {[...Array(8)].map((_, index) => (
             <Card key={index} />
           ))}

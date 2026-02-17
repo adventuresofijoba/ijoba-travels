@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Card() {
   return (
@@ -29,10 +30,12 @@ export default function Card() {
           </p>
         </div>
 
-        <Button className="w-max">
-          Read more
-          <Icon icon={"ep:right"} width="24" />
-        </Button>
+        <Link href={"/stories-and-tips/1"}>
+          <Button className="w-max">
+            Read more
+            <Icon icon={"ep:right"} width="24" />
+          </Button>
+        </Link>
       </div>
     </div>
   );
