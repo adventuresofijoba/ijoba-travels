@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { Icon } from "@iconify/react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function HeroSection() {
   return (
@@ -57,29 +64,18 @@ export default function HeroSection() {
             <label className="font-lato font-medium text-base text-[#2D2D2D]">
               Preferred Destination
             </label>
-            <div className="relative">
-              <select
-                className="w-full appearance-none bg-[#F8EFD8] px-5 py-3 rounded-xl border border-transparent focus:border-[#2D2D2D]/20 transition-colors font-lato text-sm text-[#2D2D2D] outline-none cursor-pointer"
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Select preferred destination
-                </option>
-                <option value="japan">Japan</option>
-                <option value="switzerland">Switzerland</option>
-                <option value="south-korea">South Korea</option>
-                <option value="nigeria">Nigeria</option>
-                <option value="kenya">Kenya</option>
-              </select>
-              <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
-                <Icon
-                  icon="icon-park-outline:down"
-                  className="text-[#2D2D2D]"
-                  width="20"
-                  height="20"
-                />
-              </div>
-            </div>
+            <Select>
+              <SelectTrigger className="w-full h-auto bg-[#F8EFD8] px-5 py-3 rounded-xl border-transparent focus:ring-0 focus:ring-offset-0 font-lato text-sm text-[#2D2D2D] shadow-none data-[placeholder]:text-[#2D2D2D]">
+                <SelectValue placeholder="Select preferred destination" />
+              </SelectTrigger>
+              <SelectContent className="bg-[#F8EFD8] border-none">
+                <SelectItem value="japan">Japan</SelectItem>
+                <SelectItem value="switzerland">Switzerland</SelectItem>
+                <SelectItem value="south-korea">South Korea</SelectItem>
+                <SelectItem value="nigeria">Nigeria</SelectItem>
+                <SelectItem value="kenya">Kenya</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Travel Style */}

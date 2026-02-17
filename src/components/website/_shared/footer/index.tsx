@@ -10,27 +10,20 @@ export default function Footer() {
       <div className="px-layout-spacing-xs">
         <Subscribe />
       </div>
-      <div className="relative grid w-full max-w-screen lg:h-[37vw]">
-        <Image
-          src={"/footer-image.webp"}
-          width={2880}
-          height={1084}
-          priority
-          alt="Background Image"
-          className="hidden sm:grid col-[-1/1] row-[-1/1]"
-        />
-        <Image
-          src={"/footer-image-mobile.png"}
-          width={640}
-          height={300}
-          priority
-          alt="Background Image"
-          className="sm:hidden col-[-1/1] row-[-1/1]"
-        />
+      <div className="relative grid w-full mt-32 sm:mt-48 md:mt-52">
+        <span className="absolute h-52 sm:h-80 md:h-96 aspect-[2880/1084] -top-5 left-1/2 -translate-1/2 ">
+          <Image
+            src={"/footer-image.webp"}
+            priority
+            fill
+            alt="Background Image"
+            className="object-contain"
+          />
+        </span>
 
-        <div className="col-[-1/1] row-[-1/1] container mx-auto w-full px-layout-spacing-xs text-white self-end relative grid gap-5 min-[480px]:gap-10 sm:gap-3 md:gap-5 pb-10 sm:pb-5 lg:pb-10 min-[480px]:text-lg sm:text-sm lg:text-base">
-          <div className="grid gap-5 min-[480px]:gap-10 sm:gap-5 sm:flex sm:justify-between items-center">
-            <div className="flex flex-wrap justify-center items-center gap-5 mx-auto sm:mx-0">
+        <div className="bg-[#000] w-full px-layout-spacing-xs text-white grid gap-5 py-5 relative">
+          <div className="grid gap-5 justify-center items-center">
+            <div className="flex flex-wrap justify-center items-center gap-5 mx-auto text-sm sm:text-base">
               <div className="flex items-center gap-1">
                 <Icon icon="fluent:mail-28-regular" width="20" height="20" />
                 <Link
@@ -46,7 +39,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="flex items-center gap-5 mx-auto sm:mx-0">
+            <div className="flex items-center gap-5 mx-auto">
               <Link
                 href={"https://wa.me/+447470524596"}
                 target="_blank"
@@ -89,7 +82,7 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-          <p className="text-center">
+          <p className="text-center text-sm">
             © 2024 Adventures of Ijoba. All rights reserved
           </p>
         </div>

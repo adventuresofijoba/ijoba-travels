@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lato, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import NextTopLoader from "nextjs-toploader";
 
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={cn(lato.variable, playfairDisplay.variable)}
         suppressHydrationWarning
       >
+        <NextTopLoader color="#F4A261" showSpinner={false} height={4} />
         {children}
       </body>
     </html>

@@ -76,7 +76,7 @@ export default function PackagesIncludes() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-[40px] max-w-[1000px] mx-auto">
+        <div className="grid sm:grid-cols-2 gap-[40px] max-w-5xl mx-auto">
           {INCLUDES.map((section, index) => (
             <div
               key={index}

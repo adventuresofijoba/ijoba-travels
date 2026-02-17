@@ -35,7 +35,7 @@ export default function Timeline() {
   return (
     <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 lg:py-20">
       <div className="container mx-auto flex flex-col gap-[50px] lg:gap-[80px]">
-        <div className="flex flex-col gap-4 text-center max-w-[760px] mx-auto">
+        <div className="flex flex-col gap-4 text-center max-w-5xl mx-auto">
           <h2 className="font-playfair-display font-bold text-3xl sm:text-4xl text-[#2D2D2D]">
             Timeline
           </h2>
@@ -44,7 +44,7 @@ export default function Timeline() {
           </p>
         </div>
 
-        <div className="grid gap-4">
+        <div className="grid gap-4 max-w-5xl w-full mx-auto">
           {TIMELINES.map((timeline, index) => (
             <div
               key={index}
@@ -56,9 +56,7 @@ export default function Timeline() {
               <div
                 className={cn(
                   "grid grid-rows-[1fr_auto] justify-items-center h-full gap-1 w-2.5 absolute top-0",
-                  index % 2 === 0
-                    ? "-left-[5px]"
-                    : "-left-[5px] sm:-right-[5px]"
+                  index % 2 === 0 ? "-left-0" : "-left-0 sm:left-full"
                 )}
               >
                 <span className="block w-3/4 h-full rounded-full bg-[linear-gradient(180deg,_rgba(0,_0,_0,_0)_0%,_#000000_100%)]"></span>
