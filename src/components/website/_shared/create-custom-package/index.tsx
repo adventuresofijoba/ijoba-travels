@@ -20,7 +20,7 @@ export default function CreateCustomPackage() {
         <div className="bg-black/50 grid justify-items-center gap-10 py-32 relative">
           <div className="w-full max-w-xl text-white text-center grid gap-5">
             <h2 className="font-playfair-display text-4xl sm:text-5xl">
-              Create a Custom Package Tailored Just for You
+              Let&apos;s curate your next experience
             </h2>
             <p className="text-lg text-white">
               Tell us your preferences, and we&apos;ll craft a seamless travel

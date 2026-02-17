@@ -6,15 +6,13 @@ export default function PointsSection() {
     <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 sm:py-20">
       <div className="container mx-auto grid gap-10 sm:gap-20">
         {/* point one */}
-        <div className="grid lg:grid-cols-2 items-center gap-5">
-          <p className="text-lg sm:text-xl lg:text-2xl lg:pr-28">
-            Ijoba Travels is the creative brainchild of Adventures of Ijoba, a
-            brand that began as a traveler&apos;s way of sharing authentic
-            travel stories and experiences. What began as a journey of
-            exploration evolved into a community of adventurers inspired to see
-            the world in a new light. From that spirit, Ijoba Travels emerged,
-            transforming inspiration into action by designing curated trips for
-            travelers seeking more than the ordinary.
+        <div className="grid lg:grid-cols-2 items-center gap-10">
+          <p className="text-lg sm:text-xl lg:text-2xl leading-[1.4]">
+            At Ijoba Travels, we believe travel is more than moving from place
+            to place; it&apos;s about creating moments that stay with you
+            forever. Our mission is to curate journeys that blend adventure,
+            culture, and connection, leaving every traveler with memories that
+            transcend time.
           </p>
           <span className="relative max-h-96 w-full aspect-[1271/1032] rounded-xl overflow-hidden">
             <Image
@@ -26,8 +24,9 @@ export default function PointsSection() {
             />
           </span>
         </div>
+
         {/* point Two */}
-        <div className="grid lg:grid-cols-2 gap-5 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
           <span className="relative w-full max-h-96 aspect-[1271/1032] rounded-xl overflow-hidden order-1 lg:order-none">
             <Image
               src={"/about-us-img-2.png"}
@@ -37,14 +36,39 @@ export default function PointsSection() {
               alt="Image"
             />
           </span>
-          <p className="text-lg sm:text-xl lg:text-2xl lg:pl-28">
+          <p className="text-lg sm:text-xl lg:text-2xl">
+            Ijoba Travels is the creative brainchild of{" "}
+            <strong>Adventures of Ijoba</strong>, a brand that began as a
+            traveler&apos;s way of sharing authentic travel stories and
+            experiences. What began as a journey of exploration evolved into a
+            community of adventurers inspired to see the world in a new light.
+            From that spirit, Ijoba Travels emerged, transforming inspiration
+            into action by designing curated trips for travelers seeking more
+            than the ordinary.
+          </p>
+        </div>
+
+        {/* point Three */}
+        <div className="grid lg:grid-cols-2 items-center gap-10">
+          <p className="text-lg sm:text-xl lg:text-2xl leading-[1.4]">
             Today, we bring that same personal touch into every trip we plan.
             Whether it&apos;s a weekend escape within Nigeria, a cultural
             journey across Africa, or an international adventure beyond, Ijoba
             Travels is committed to crafting experiences that are personal,
-            seamless, and unforgettable. At Ijoba Travels, we don&apos;t just
-            plan trips; we curate memories that transcend time.
+            seamless, and unforgettable.
+            <br /> <br />
+            At Ijoba Travels, we don&apos;t just plan trips;{" "}
+            <strong>we curate memories that transcend time.</strong>
           </p>
+          <span className="relative max-h-96 w-full aspect-[1271/1032] rounded-xl overflow-hidden">
+            <Image
+              src={"/about-us-img-1.png"}
+              fill
+              objectFit="cover"
+              objectPosition="center"
+              alt="Image"
+            />
+          </span>
         </div>
       </div>
     </section>

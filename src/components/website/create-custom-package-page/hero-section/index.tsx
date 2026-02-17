@@ -15,10 +15,11 @@ export default function HeroSection() {
       <div className="container mx-auto grid gap-10">
         <div className="text-center max-w-3xl mx-auto grid gap-5">
           <h1 className="font-playfair-display text-5xl sm:text-6xl font-semibold">
-            Let&apos;s Create Your Custom Journey
+            Let&apos;s Curate your next experience
           </h1>
           <p className="text-lg">
-            Tell us your preferences, and we&apos;ll craft your perfect trip.{" "}
+            Tell us your preferences, and we&apos;ll curate the right trip for
+            you.
           </p>
         </div>
 

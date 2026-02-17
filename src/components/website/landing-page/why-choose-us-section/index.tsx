@@ -10,7 +10,7 @@ export default function WhyChooseUsSection() {
           <h2 className="font-playfair-display text-4xl font-semibold max-w-[420px] italic">
             Why Choose Adventures of Ijoba?
           </h2>
-          <p className="text-lg">Effortless Travel, Endless Possibilities.</p>
+          <p className="text-lg">Effortless Travel, Unforgettable Memories</p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-5">

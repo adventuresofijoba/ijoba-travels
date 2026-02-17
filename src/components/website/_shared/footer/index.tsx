@@ -21,8 +21,8 @@ export default function Footer() {
           />
         </span>
 
-        <div className="bg-[#000] w-full px-layout-spacing-xs text-white grid gap-5 py-5 relative">
-          <div className="grid gap-5 justify-center items-center">
+        <div className="bg-[#000] w-full px-layout-spacing-xs text-white grid gap-5 sm:gap-10 py-10 relative">
+          <div className="grid sm:grid-flow-col gap-5 justify-center sm:justify-between items-center container mx-auto">
             <div className="flex flex-wrap justify-center items-center gap-5 mx-auto text-sm sm:text-base">
               <div className="flex items-center gap-1">
                 <Icon icon="fluent:mail-28-regular" width="20" height="20" />

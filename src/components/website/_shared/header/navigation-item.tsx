@@ -24,13 +24,13 @@ export default function NavigationItem({
     <Link
       href={url}
       className={cn(
-        "relative transition-all after:absolute after:w-full after:h-[0.5px] after:left-0 after:-bottom-0.5",
+        "relative w-max transition-all after:absolute after:w-full after:h-[0.5px] after:left-0 after:-bottom-0.5",
         variant === "variant-2"
           ? "text-black after:bg-black"
           : "text-white after:bg-white",
         matcher.includes(path)
           ? "font-bold after:opacity-100"
-          : "hover:font-bold after:opacity-0"
+          : "after:transition-all after:w-0 hover:after:w-full hover:after:opacity-100 after:opacity-0"
       )}
     >
       {title}

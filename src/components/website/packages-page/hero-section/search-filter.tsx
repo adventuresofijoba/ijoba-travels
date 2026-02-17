@@ -35,7 +35,7 @@ export default function SearchFilter() {
   return (
     <div
       ref={containerRef}
-      className="flex flex-col gap-2.5 items-center w-full max-w-[650px] mx-auto relative z-20"
+      className="flex flex-col gap-2.5 items-center w-full max-w-[650px] mx-auto relative"
     >
       {/* Search Bar */}
       <div className="bg-[#F8EFD8] rounded-full px-4 sm:px-8 py-2.5 sm:py-5 flex items-center justify-between gap-2.5 sm:gap-5 w-full max-w-[625px] shadow-sm">
@@ -105,7 +105,7 @@ export default function SearchFilter() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="bg-[#F8EFD8] rounded-xl p-5 w-full absolute top-[80px] left-0 right-0 shadow-xl z-30"
+            className="bg-[#F8EFD8] rounded-xl p-5 w-full absolute top-16 left-0 right-0 shadow-xl z-30"
           >
             {/* Destination Content */}
             {activeFilter === "destination" && (

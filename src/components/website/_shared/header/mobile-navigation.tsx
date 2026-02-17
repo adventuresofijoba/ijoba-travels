@@ -63,8 +63,8 @@ export default function MobileNavigation({
 
       <div
         className={cn(
-          "bg-[#F5E8C7] fixed left-0 top-[84px] w-full transition-all overflow-hidden grid gap-8 content-start px-layout-spacing-xs sm:px-layout-spacing-sm",
-          isOpen ? "h-[calc(100vh_-_84px)] py-10" : "h-0"
+          "bg-[#F5E8C7] fixed left-0 top-[84px] w-full transition-all duration-300 ease-in-out z-50 overflow-hidden grid gap-8 content-start px-layout-spacing-xs sm:px-layout-spacing-sm",
+          isOpen ? "h-[calc(100vh_-_84px)] py-10 opacity-100" : "h-0 opacity-0"
         )}
       >
         <NavigationItem
@@ -86,11 +86,17 @@ export default function MobileNavigation({
           variant={variantState}
         />
         <NavigationItem
+          title="Stories & Tips"
+          url="/stories-and-tips"
+          matcher={["/stories-and-tips"]}
+          variant={variantState}
+        />
+        {/* <NavigationItem
           title="About Us"
           url="/about-us"
           matcher={["/about-us"]}
           variant={variantState}
-        />
+        /> */}
         <NavigationItem
           title="Contact Us"
           url="/contact-us"

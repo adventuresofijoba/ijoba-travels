@@ -22,11 +22,12 @@ export default function Navigation({ variant }: NavigationProps) {
         variant={variant}
       />
       <NavigationItem
-        title="About Us"
-        url="/about-us"
-        matcher={["/about-us"]}
+        title="Stories & Tips"
+        url="/stories-and-tips"
+        matcher={["/stories-and-tips"]}
         variant={variant}
       />
+
       <NavigationItem
         title="Contact Us"
         url="/contact-us"

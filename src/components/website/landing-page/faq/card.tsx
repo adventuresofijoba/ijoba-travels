@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
+import { cn } from "@/lib/utils";
 
 interface CardProps {
   ques: string;
@@ -28,13 +29,14 @@ export default function Card({ ans, ques }: CardProps) {
         </button>
       </div>
 
-      <p
-        className={`overflow-hidden transition-all ${
-          isShowAns ? "max-h-[1000px] mt-5" : "max-h-0"
-        }`}
+      <div
+        className={cn(
+          "overflow-hidden  transition-all duration-300 ease-in-out",
+          isShowAns ? "max-h-[1000px]" : "max-h-0"
+        )}
       >
-        {ans}
-      </p>
+        <p className="pt-5" dangerouslySetInnerHTML={{ __html: ans }}></p>
+      </div>
     </div>
   );
 }
