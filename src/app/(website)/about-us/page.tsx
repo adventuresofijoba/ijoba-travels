@@ -1,3 +1,4 @@
+import Footer from "@/components/website/_shared/footer";
 import Header from "@/components/website/_shared/header";
 import HeroSection from "@/components/website/about-us-page/hero-section";
 import PointsSection from "@/components/website/about-us-page/points-section";
@@ -11,6 +12,7 @@ export default function Page() {
       <HeroSection />
       <PointsSection />
       <FaqSection />
+      <Footer />
     </main>
   );
 }

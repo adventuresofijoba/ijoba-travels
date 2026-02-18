@@ -3,6 +3,7 @@ import CreateCustomPackage from "@/components/website/_shared/create-custom-pack
 import HeroSection from "@/components/website/packages-page/hero-section";
 import Packages from "@/components/website/packages-page/packages";
 import React from "react";
+import Footer from "@/components/website/_shared/footer";
 
 export default function Page() {
   return (
@@ -11,6 +12,7 @@ export default function Page() {
       <HeroSection />
       <Packages />
       <CreateCustomPackage />
+      <Footer />
     </main>
   );
 }

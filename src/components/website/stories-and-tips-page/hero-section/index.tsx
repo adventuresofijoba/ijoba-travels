@@ -1,7 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Card from "../../landing-page/travel-stories/card";
+import Pagination from "./pagination";
 
 export default function HeroSection() {
+  const [currentPage, setCurrentPage] = useState(1);
+
   return (
     <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 sm:py-20">
       <div className="container mx-auto grid gap-10">
@@ -20,6 +25,12 @@ export default function HeroSection() {
             <Card key={index} />
           ))}
         </div>
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={5}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </section>
   );

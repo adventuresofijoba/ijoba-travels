@@ -1,3 +1,4 @@
+import Footer from "@/components/website/_shared/footer";
 import Header from "@/components/website/_shared/header";
 import DetailsPage from "@/components/website/stories-and-tips-page/details-page";
 
@@ -11,6 +12,7 @@ export default async function Page({
     <main>
       <Header variant="variant-2" />
       <DetailsPage slug={slug} />
+      <Footer />
     </main>
   );
 }

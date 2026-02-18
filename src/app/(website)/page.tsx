@@ -1,3 +1,4 @@
+import Footer from "@/components/website/_shared/footer";
 import Header from "@/components/website/_shared/header";
 import ExploreSection from "@/components/website/landing-page/explore-section";
 import FaqSection from "@/components/website/landing-page/faq";
@@ -17,6 +18,7 @@ export default function Page() {
       <WhyChooseUsSection />
       <TravelStoriesSection />
       <FaqSection />
+      <Footer />
     </main>
   );
 }

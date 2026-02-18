@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-export default function Footer() {
+export default function Footer({ hideSubscribe }: { hideSubscribe?: boolean }) {
   return (
     <footer className="pt-20 overflow-hidden">
-      <div className="px-layout-spacing-xs">
-        <Subscribe />
-      </div>
+      {!hideSubscribe && (
+        <div className="px-layout-spacing-xs">
+          <Subscribe />
+        </div>
+      )}
       <div className="relative grid w-full mt-32 sm:mt-48 md:mt-52">
         <span className="absolute h-52 sm:h-80 md:h-96 aspect-[2880/1084] -top-5 left-1/2 -translate-1/2 ">
           <Image

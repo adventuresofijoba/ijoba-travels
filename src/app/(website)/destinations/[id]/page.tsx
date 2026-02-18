@@ -1,3 +1,4 @@
+import Footer from "@/components/website/_shared/footer";
 import Header from "@/components/website/_shared/header";
 import HeroSection from "@/components/website/destinations-page/details-page/hero-section";
 import RecommendedPackages from "@/components/website/destinations-page/details-page/recommended-packages";
@@ -15,6 +16,7 @@ export default function Page() {
       <WhyVisit />
       <TopExperiences />
       <RecommendedPackages />
+      <Footer />
     </main>
   );
 }
