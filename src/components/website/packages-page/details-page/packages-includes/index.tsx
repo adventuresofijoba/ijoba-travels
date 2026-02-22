@@ -2,68 +2,19 @@
 
 import React from "react";
 import { Icon } from "@iconify/react";
+import { Package } from "@/types";
 
-const INCLUDES = [
-  {
-    id: "01",
-    title: "Accommodation & Stay",
-    items: [
-      "4-star or 5-star hotels in major cities (Tokyo, Kyoto, Osaka).",
-      "Experience an authentic Ryokan (traditional Japanese inn) with tatami floors and futon bedding.",
-      "Optional capsule hotel stay for an ultra-modern experience.",
-    ],
-  },
-  {
-    id: "02",
-    title: "Flights & Transfers",
-    items: [
-      "Private airport pickup and drop-off service.",
-      "High-speed Shinkansen (bullet train) passes for intercity travel.",
-      "Local transport passes for buses, subways, and taxis.",
-    ],
-  },
-  {
-    id: "03",
-    title: "Meals & Culinary Experience",
-    items: [
-      "Authentic Japanese breakfast with miso soup, rice, grilled fish, and pickles.",
-      "Michelin-starred dining experience (optional upgrade).",
-      "Guided street food tour in Tokyo’s Tsukiji Market & Osaka’s Dotonbori.",
-      "Traditional Tea Ceremony in Kyoto.",
-    ],
-  },
-  {
-    id: "04",
-    title: "Guided Tours & Excursions",
-    items: [
-      "Tokyo Highlights: Shibuya Crossing, Senso-ji Temple, Akihabara, and Harajuku.",
-      "Kyoto Heritage Tour: Fushimi Inari Shrine, Kinkaku-ji (Golden Pavilion), and Arashiyama Bamboo Forest.",
-      "Mount Fuji & Hakone Day Trip: Scenic lake cruise & ropeway ride.",
-      "Osaka Nightlife & Street Food Adventure: Dotonbori, Shinsekai, and Umeda Sky Building.",
-    ],
-  },
-  {
-    id: "05",
-    title: "Special Experiences & Activities",
-    items: [
-      "Kimono Rental & Photoshoot in Kyoto.",
-      "Samurai Experience: Learn the way of the sword with a real Samurai master.",
-      "Sushi-Making Class with a professional chef.",
-      "Anime & Gaming Tour: Akihabara, Pokémon Center, and Ghibli Museum.",
-    ],
-  },
-  {
-    id: "06",
-    title: "Shopping & Souvenirs",
-    items: [
-      "Visit Shinjuku & Ginza for high-end fashion.",
-      "Explore Nakamise Shopping Street for traditional crafts.",
-      "Personalized shopping assistant available upon request.",
-    ],
-  },
-];
+interface PackagesIncludesProps {
+  pkg: Package;
+}
 
-export default function PackagesIncludes() {
+export default function PackagesIncludes({ pkg }: PackagesIncludesProps) {
+  const features = pkg.features || [];
+
+  if (features.length === 0) {
+    return null;
+  }
+
   return (
     <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 lg:py-20">
       <div className="container mx-auto flex flex-col gap-[50px] lg:gap-[80px]">
@@ -77,7 +28,7 @@ export default function PackagesIncludes() {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-[40px] max-w-5xl mx-auto">
-          {INCLUDES.map((section, index) => (
+          {features.map((feature, index) => (
             <div
               key={index}
               className="flex flex-col md:flex-row gap-6 md:gap-[40px] items-start"
@@ -85,17 +36,17 @@ export default function PackagesIncludes() {
               {/* Number Badge */}
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 bg-black grid place-content-center rounded-full text-white">
-                  {section.id}
+                  {String(index + 1).padStart(2, "0")}
                 </div>
               </div>
 
               {/* Content */}
               <div className="flex flex-col gap-5 pt-1 w-full">
                 <h3 className="font-playfair-display font-bold text-2xl text-[#2D2D2D]">
-                  {section.title}
+                  {feature.title}
                 </h3>
                 <div className="flex flex-col gap-3">
-                  {section.items.map((item, i) => (
+                  {feature.points.map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <div className="mt-1 flex-shrink-0">
                         <Icon

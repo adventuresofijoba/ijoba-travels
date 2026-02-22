@@ -34,6 +34,13 @@ export default function Navigation({ variant }: NavigationProps) {
         matcher={["/about-us"]}
         variant={variant}
       />
+
+      <NavigationItem
+        title="Contact Us"
+        url="/contact-us"
+        matcher={["/contact-us"]}
+        variant={variant}
+      />
     </nav>
   );
 }

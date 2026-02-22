@@ -3,6 +3,7 @@ import { Lato, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "sonner";
 
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],

@@ -56,8 +56,8 @@ export default function HeroSection() {
       <div className="container mx-auto grid gap-10">
         <div className="text-center max-w-3xl mx-auto grid gap-5">
           <h1 className="font-playfair-display text-5xl sm:text-6xl font-semibold">
-            Explore the world, one <span className="italic">destination</span>{" "}
-            at a time.
+            Explore the world, <br />
+            one <span className="italic">destination</span> at a time.
           </h1>
           <p className="text-lg">
             Find the perfect getaway tailored to your travel style.

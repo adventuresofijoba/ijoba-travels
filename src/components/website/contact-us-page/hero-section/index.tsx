@@ -2,7 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React, { useState } from "react";
+import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+import { sendEmail } from "@/actions/send-email";
 
 export default function HeroSection() {
   const [firstname, setFirstname] = useState("");
@@ -10,16 +13,58 @@ export default function HeroSection() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const sendToWhatsApp = () => {
-    const fullName = `${firstname} ${lastname}`;
-    const agencyNumber = "+447470524596"; // Replace with your travel agency WhatsApp number (in international format, no +)
+  const handleSubmit = async () => {
+    if (!firstname || !lastname || !email || !message) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
 
-    const message = `Hello Ijoba Travels,%0AMy name is ${fullName}. I’d like to inquire about a trip.%0AHere are my details:%0AEmail: ${email}%0APhone: ${phone}`;
+    setLoading(true);
 
-    const url = `https://wa.me/${agencyNumber}?text=${message}`;
+    try {
+      const { error } = await supabase.from("inquiries").insert({
+        full_name: `${firstname} ${lastname}`,
+        email,
+        phone_number: phone,
+        message,
+        inquiry_type: "contact",
+        status: "new",
+      });
 
-    window.open(url, "_blank")?.focus();
+      if (error) throw error;
+
+      // Send email notification
+      await sendEmail({
+        type: "contact",
+        name: `${firstname} ${lastname}`,
+        email,
+        phone,
+        message,
+      });
+
+      toast.success("Message sent successfully! We'll be in touch soon.");
+
+      // Send to WhatsApp
+      const whatsappMessage = `Hello, I would like to make an inquiry.\n\nName: ${firstname} ${lastname}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`;
+      const whatsappUrl = `https://wa.me/447470524596?text=${encodeURIComponent(
+        whatsappMessage
+      )}`;
+      window.open(whatsappUrl, "_blank");
+
+      // Reset form
+      setFirstname("");
+      setLastname("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+    } catch (error: any) {
+      console.error("Error submitting contact form:", error);
+      toast.error(error.message || "Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -95,12 +140,18 @@ export default function HeroSection() {
             />
           </div>
           <Button
-            onClick={sendToWhatsApp}
-            disabled={!firstname || !lastname || !email || !message}
+            onClick={handleSubmit}
+            disabled={!firstname || !lastname || !email || !message || loading}
             className="mt-5"
           >
-            <Icon icon={"mage:whatsapp-filled"} width="24" color="#FFFFFF" />
-            SUBMIT
+            {loading ? (
+              <Icon
+                icon="eos-icons:loading"
+                width="24"
+                className="animate-spin"
+              />
+            ) : null}
+            {loading ? "SENDING..." : "SUBMIT"}
           </Button>
         </div>
       </div>

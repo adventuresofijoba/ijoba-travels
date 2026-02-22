@@ -3,35 +3,19 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
+import { Package } from "@/types";
 
-const TIMELINES = [
-  {
-    id: "01",
-    date: "March 23, 2025",
-    title: "City trip to Tokyo",
-    text: "Experience the perfect blend of tradition and modernity during this city trip to Tokyo.",
-  },
-  {
-    id: "01",
-    date: "March 23, 2025",
-    title: "City trip to Tokyo",
-    text: "Experience the perfect blend of tradition and modernity during this city trip to Tokyo.",
-  },
-  {
-    id: "01",
-    date: "March 23, 2025",
-    title: "City trip to Tokyo",
-    text: "Experience the perfect blend of tradition and modernity during this city trip to Tokyo.",
-  },
-  {
-    id: "01",
-    date: "March 23, 2025",
-    title: "City trip to Tokyo",
-    text: "Experience the perfect blend of tradition and modernity during this city trip to Tokyo.",
-  },
-];
+interface TimelineProps {
+  pkg: Package;
+}
 
-export default function Timeline() {
+export default function Timeline({ pkg }: TimelineProps) {
+  const timeline = pkg.timeline || [];
+
+  if (timeline.length === 0) {
+    return null;
+  }
+
   return (
     <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 lg:py-20">
       <div className="container mx-auto flex flex-col gap-[50px] lg:gap-[80px]">
@@ -45,7 +29,7 @@ export default function Timeline() {
         </div>
 
         <div className="grid gap-4 max-w-5xl w-full mx-auto">
-          {TIMELINES.map((timeline, index) => (
+          {timeline.map((item, index) => (
             <div
               key={index}
               className={cn(
@@ -71,16 +55,16 @@ export default function Timeline() {
                     height="20"
                   />
                   <span className="font-lato text-base text-[#2D2D2D]">
-                    {timeline.date}
+                    {item.date}
                   </span>
                 </div>
 
                 <div className="flex flex-col gap-2.5">
                   <h3 className="font-lato font-semibold text-xl text-[#2D2D2D]">
-                    {timeline.title}
+                    {item.title}
                   </h3>
                   <p className="font-lato text-base text-[#2D2D2D] leading-relaxed opacity-80">
-                    {timeline.text}
+                    {item.description}
                   </p>
                 </div>
               </div>

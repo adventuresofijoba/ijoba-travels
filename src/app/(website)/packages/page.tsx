@@ -5,12 +5,20 @@ import Packages from "@/components/website/packages-page/packages";
 import React from "react";
 import Footer from "@/components/website/_shared/footer";
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    destination?: string;
+    budget?: string;
+    duration?: string;
+  }>;
+}) {
   return (
     <main>
       <Header variant="variant-2" />
       <HeroSection />
-      <Packages />
+      <Packages searchParams={searchParams} />
       <CreateCustomPackage />
       <Footer />
     </main>

@@ -3,8 +3,17 @@ import Card from "./card";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import { Destination } from "@/types";
 
-export default function ExploreSection() {
+export default async function ExploreSection() {
+  const { data: destinations } = await supabase
+    .from("destinations")
+    .select("*")
+    .eq("is_active", true)
+    .order("created_at", { ascending: false })
+    .limit(8);
+
   return (
     <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 sm:py-20">
       <div className="container mx-auto grid gap-10">
@@ -18,9 +27,17 @@ export default function ExploreSection() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {[...Array(8)].map((_, index) => (
-            <Card key={index} />
+          {destinations?.map((destination: any) => (
+            <Card
+              key={destination.id}
+              destination={destination as Destination}
+            />
           ))}
+          {(!destinations || destinations.length === 0) && (
+            <div className="col-span-full text-center text-muted-foreground">
+              No destinations found.
+            </div>
+          )}
         </div>
 
         <Link href={"/packages"} className="w-max mx-auto mt-10">

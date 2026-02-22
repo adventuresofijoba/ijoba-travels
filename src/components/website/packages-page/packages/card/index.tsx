@@ -1,34 +1,48 @@
 import React from "react";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Package } from "@/types";
+import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 
-export default function PackagesCard() {
+interface PackagesCardProps {
+  packageData: Package & { destinations?: { name: string } };
+}
+
+export default function PackagesCard({ packageData }: PackagesCardProps) {
+  const destinationName =
+    packageData.destinations?.name || packageData.destination;
+
   return (
-    <div className="bg-[#F8EFD8] rounded-xl overflow-hidden grid w-full">
+    <div className="bg-[#F8EFD8] rounded-xl overflow-hidden grid w-full h-full grid-rows-[auto_1fr]">
       <span className="grid relative h-64 overflow-hidden">
-        <Image
-          src={"/exp-1.jpg"}
+        <ImageWithFallback
+          src={packageData.image_urls?.[0]}
           fill
-          objectFit="cover"
-          objectPosition="center"
-          alt="United Arab Emirates"
+          className="object-cover object-center hover:scale-105 transition-transform duration-300"
+          alt={packageData.title}
         />
       </span>
 
-      <div className="grid gap-5 p-5">
-        <div className="text-sm">United Arab Emirates - 5 days</div>
+      <div className="grid gap-5 p-5 content-between">
+        <div className="text-sm font-medium text-muted-foreground">
+          {destinationName ? `${destinationName} - ` : ""}
+          {packageData.duration_days} days
+        </div>
 
         <div className="grid gap-3">
-          <h3 className="font-semibold text-xl">City trip Abu Dhabi</h3>
-          <p>
-            Discover the best of both worlds during this city trip to Abu Dhabi.
+          <h3 className="font-semibold text-xl line-clamp-1">
+            {packageData.title}
+          </h3>
+          <p className="line-clamp-3 text-muted-foreground">
+            {packageData.description}
           </p>
         </div>
 
-        <div className="grid grid-flow-col items-center justify-between">
-          <span className="font-semibold text-3xl">$1,200</span>
-          <Link href="/packages/1">
+        <div className="grid grid-flow-col items-center justify-between mt-auto">
+          <span className="font-semibold text-2xl">
+            ₦{packageData.price?.toLocaleString()}
+          </span>
+          <Link href={`/packages/${packageData.id}`}>
             <Button>Discover</Button>
           </Link>
         </div>
