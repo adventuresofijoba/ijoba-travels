@@ -75,7 +75,7 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
         travel_dates: `${formData.startDate} to ${formData.endDate}`,
         message: formData.message,
         inquiry_type: "custom_package",
-        status: "new",
+        status: "unresolved",
       });
 
       if (error) throw error;

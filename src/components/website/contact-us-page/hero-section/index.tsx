@@ -30,7 +30,7 @@ export default function HeroSection() {
         phone_number: phone,
         message,
         inquiry_type: "contact",
-        status: "new",
+        status: "unresolved",
       });
 
       if (error) throw error;

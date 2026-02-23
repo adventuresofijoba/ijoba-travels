@@ -128,7 +128,7 @@ function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
         message: formData.message,
         preferred_destination: pkg.title, // Using preferred_destination to store package name
         inquiry_type: "package_reserve",
-        status: "new",
+        status: "unresolved",
       });
 
       if (error) throw error;

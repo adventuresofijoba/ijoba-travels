@@ -26,7 +26,7 @@ export default function Subscribe() {
         email,
         full_name: "Newsletter Subscriber", // Required field in schema
         inquiry_type: "newsletter",
-        status: "new",
+        status: "unresolved",
       });
 
       if (error) throw error;
