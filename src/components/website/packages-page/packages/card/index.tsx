@@ -23,13 +23,13 @@ export default function PackagesCard({ packageData }: PackagesCardProps) {
         />
       </span>
 
-      <div className="grid gap-5 p-5 content-between">
+      <div className="grid gap-5 p-5 grid-rows-[auto_1fr_auto]">
         <div className="text-sm font-medium text-muted-foreground">
           {destinationName ? `${destinationName} - ` : ""}
           {packageData.duration_days} days
         </div>
 
-        <div className="grid gap-3">
+        <div className="grid gap-3 content-start">
           <h3 className="font-semibold text-xl line-clamp-1">
             {packageData.title}
           </h3>

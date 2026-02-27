@@ -37,7 +37,7 @@ async function getFilterData() {
 
     for (let i = start; i < end; i += step) {
       budgetRanges.push(
-        `$${i.toLocaleString()} - $${(i + step).toLocaleString()}`
+        `₦${i.toLocaleString()} - ₦${(i + step).toLocaleString()}`
       );
     }
   }

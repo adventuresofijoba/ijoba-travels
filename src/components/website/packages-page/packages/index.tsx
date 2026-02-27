@@ -10,12 +10,16 @@ export default async function Packages({
     destination?: string;
     budget?: string;
     duration?: string;
+    budget_min?: string;
+    budget_max?: string;
   }>;
 }) {
   const params = await searchParams;
   const destination = params?.destination;
   const budget = params?.budget;
   const duration = params?.duration;
+  const budgetMinParam = params?.budget_min;
+  const budgetMaxParam = params?.budget_max;
 
   let query = supabase
     .from("packages")
@@ -28,7 +32,21 @@ export default async function Packages({
     query = query.ilike("destination", `%${destination}%`);
   }
 
-  if (budget) {
+  // Support new min/max params first
+  const minParsed =
+    budgetMinParam !== undefined ? parseInt(budgetMinParam, 10) : undefined;
+  const maxParsed =
+    budgetMaxParam !== undefined ? parseInt(budgetMaxParam, 10) : undefined;
+
+  if (minParsed !== undefined && !isNaN(minParsed)) {
+    query = query.gte("price", minParsed);
+  }
+  if (maxParsed !== undefined && !isNaN(maxParsed)) {
+    query = query.lte("price", maxParsed);
+  }
+
+  // Backward compatibility: parse old "budget" range if present
+  if (budget && minParsed === undefined && maxParsed === undefined) {
     const [minStr, maxStr] = budget.replace(/₦/g, "").split(" - ");
     const min = parseInt(minStr.replace(/,/g, ""), 10);
     const max = maxStr ? parseInt(maxStr.replace(/,/g, ""), 10) : undefined;
