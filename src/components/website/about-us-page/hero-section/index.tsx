@@ -10,13 +10,15 @@ export default function HeroSection() {
             About IJOBA TRAVELS
           </h1>
           <p className="text-lg">
-            Discover the land of ancient traditions and modern wonders as we
-            explore Tokyo&apos;s vibrant cityscape, visit historic Kyoto
-            temples, make and savor exquisite authentic traditional food, and
-            teleport to the land of your anime dreams. Experience the rich
-            culture, breathtaking landscapes, and warm hospitality of Japan on
-            this magical journey of cultural immersion and unforgettable
-            memories.
+            Ijoba Travels is a dynamic travel and tourism company driven by a
+            passion for meaningful experiences and unforgettable adventures.
+            Built on the belief that travel should inspire discovery, foster
+            cultural connections, and create lasting memories, the company
+            specializes in thoughtfully curated journeys for individuals,
+            groups, and organizations. By combining careful planning, authentic
+            local insights, and a commitment to exceptional service, Ijoba
+            Travels transforms ordinary trips into enriching experiences that
+            stay with travelers long after the journey ends.
           </p>
         </div>
 

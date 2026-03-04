@@ -34,15 +34,15 @@ export default function MobileNavigation({ isOpen }: MobileNavigationProps) {
         variant={"variant-2"}
       />
       <NavigationItem
-        title="Packages"
-        url="/packages"
-        matcher={["/packages"]}
-        variant={"variant-2"}
-      />
-      <NavigationItem
         title="Destinations"
         url="/destinations"
         matcher={["/destinations"]}
+        variant={"variant-2"}
+      />
+      <NavigationItem
+        title="Packages"
+        url="/packages"
+        matcher={["/packages"]}
         variant={"variant-2"}
       />
       <NavigationItem

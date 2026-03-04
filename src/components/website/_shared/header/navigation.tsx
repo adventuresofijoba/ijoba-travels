@@ -10,15 +10,15 @@ export default function Navigation({ variant }: NavigationProps) {
     <nav className="hidden md:grid grid-flow-col gap-5">
       <NavigationItem title="Home" url="/" matcher={["/"]} variant={variant} />
       <NavigationItem
-        title="Packages"
-        url="/packages"
-        matcher={["/packages"]}
-        variant={variant}
-      />
-      <NavigationItem
         title="Destinations"
         url="/destinations"
         matcher={["/destinations"]}
+        variant={variant}
+      />
+      <NavigationItem
+        title="Packages"
+        url="/packages"
+        matcher={["/packages"]}
         variant={variant}
       />
       <NavigationItem

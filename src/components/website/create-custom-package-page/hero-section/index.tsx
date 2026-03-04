@@ -3,17 +3,11 @@
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { Destination } from "@/types";
 import { sendEmail } from "@/actions/send-email";
+import { Check } from "lucide-react";
 
 interface HeroSectionProps {
   destinations?: Destination[];
@@ -25,12 +19,13 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
     email: "",
     phone: "",
     destination: "",
-    travelStyle: "",
+    travelStyle: [] as string[],
     startDate: "",
     endDate: "",
     message: "",
   });
   const [loading, setLoading] = useState(false);
+  const todayStr = new Date().toISOString().split("T")[0];
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -39,12 +34,14 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, destination: value }));
-  };
-
-  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, travelStyle: e.target.id }));
+  const handleStyleToggle = (id: string) => {
+    setFormData((prev) => {
+      const exists = prev.travelStyle.includes(id);
+      const next = exists
+        ? prev.travelStyle.filter((s) => s !== id)
+        : [...prev.travelStyle, id];
+      return { ...prev, travelStyle: next };
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,11 +52,19 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
       !formData.email ||
       !formData.phone ||
       !formData.destination ||
-      !formData.travelStyle ||
+      formData.travelStyle.length === 0 ||
       !formData.startDate ||
       !formData.endDate
     ) {
       toast.error("Please fill in all required fields.");
+      return;
+    }
+    if (new Date(formData.startDate) < new Date(todayStr)) {
+      toast.error("Start date must be in the future");
+      return;
+    }
+    if (new Date(formData.endDate) < new Date(formData.startDate)) {
+      toast.error("End date cannot be before start date");
       return;
     }
 
@@ -71,7 +76,7 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
         email: formData.email,
         phone_number: formData.phone,
         preferred_destination: formData.destination,
-        travel_style: formData.travelStyle,
+        travel_style: formData.travelStyle.join(", "),
         travel_dates: `${formData.startDate} to ${formData.endDate}`,
         message: formData.message,
         inquiry_type: "custom_package",
@@ -87,7 +92,7 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
         email: formData.email,
         phone: formData.phone,
         destination: formData.destination,
-        travelStyle: formData.travelStyle,
+        travelStyle: formData.travelStyle.join(", "),
         dates: `${formData.startDate} to ${formData.endDate}`,
         message: formData.message,
       });
@@ -107,7 +112,7 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
         email: "",
         phone: "",
         destination: "",
-        travelStyle: "",
+        travelStyle: [],
         startDate: "",
         endDate: "",
         message: "",
@@ -184,21 +189,22 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
             <label className="font-lato font-medium text-base text-[#2D2D2D]">
               Preferred Destination
             </label>
-            <Select
-              value={formData.destination}
-              onValueChange={handleSelectChange}
-            >
-              <SelectTrigger className="w-full h-auto bg-[#F8EFD8] px-5 py-3 rounded-xl border-transparent focus:ring-0 focus:ring-offset-0 font-lato text-sm text-[#2D2D2D] shadow-none data-[placeholder]:text-[#2D2D2D]">
-                <SelectValue placeholder="Select preferred destination" />
-              </SelectTrigger>
-              <SelectContent className="bg-[#F8EFD8] border-none">
-                {destinations.map((destination) => (
-                  <SelectItem key={destination.id} value={destination.name}>
-                    {destination.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="flex items-center gap-2.5 bg-[#F8EFD8] px-5 py-3 rounded-xl border border-transparent focus-within:border-[#2D2D2D]/20 transition-colors">
+              <Icon
+                icon="mdi:map-marker-outline"
+                width="20"
+                height="20"
+                className="text-[#2D2D2D] flex-shrink-0"
+              />
+              <input
+                type="text"
+                name="destination"
+                value={formData.destination}
+                onChange={handleChange}
+                placeholder="Enter preferred destination"
+                className="bg-transparent outline-none font-lato text-sm text-[#2D2D2D] w-full placeholder:text-[#2D2D2D]/60"
+              />
+            </div>
           </div>
 
           {/* Travel Style */}
@@ -220,14 +226,18 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
                 >
                   <div className="relative w-5 h-5 flex items-center justify-center">
                     <input
-                      type="radio"
-                      name="travelStyle"
+                      type="checkbox"
                       id={style.id}
-                      checked={formData.travelStyle === style.id}
-                      onChange={handleRadioChange}
-                      className="peer appearance-none w-5 h-5 border-[1.5px] border-[#2D2D2D] rounded-full checked:border-[#2D2D2D] cursor-pointer"
+                      checked={formData.travelStyle.includes(style.id)}
+                      onChange={() => handleStyleToggle(style.id)}
+                      className="peer appearance-none w-5 h-5 border-[1.5px] border-[#2D2D2D] rounded-sm checked:border-[#2D2D2D] cursor-pointer checked:bg-[#2D2D2D]"
                     />
-                    <div className="absolute w-2.5 h-2.5 bg-[#2D2D2D] rounded-full scale-0 peer-checked:scale-100 transition-transform pointer-events-none" />
+                    <label
+                      htmlFor={style.id}
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    >
+                      <Check size={10} color="#F5E8C7" />
+                    </label>
                   </div>
                   <label
                     htmlFor={style.id}
@@ -254,11 +264,11 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
                   className="text-[#2D2D2D] flex-shrink-0"
                 />
                 <input
-                  type="text"
+                  type="date"
                   name="startDate"
                   value={formData.startDate}
                   onChange={handleChange}
-                  placeholder="dd/mm/yyyy"
+                  min={todayStr}
                   className="bg-transparent outline-none font-lato text-sm text-[#2D2D2D] w-full placeholder:text-[#2D2D2D]/60"
                 />
               </div>
@@ -275,11 +285,11 @@ export default function HeroSection({ destinations = [] }: HeroSectionProps) {
                   className="text-[#2D2D2D] flex-shrink-0"
                 />
                 <input
-                  type="text"
+                  type="date"
                   name="endDate"
                   value={formData.endDate}
                   onChange={handleChange}
-                  placeholder="dd/mm/yyyy"
+                  min={formData.startDate || todayStr}
                   className="bg-transparent outline-none font-lato text-sm text-[#2D2D2D] w-full placeholder:text-[#2D2D2D]/60"
                 />
               </div>

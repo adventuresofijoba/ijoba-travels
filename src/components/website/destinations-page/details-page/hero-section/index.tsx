@@ -8,7 +8,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ destination }: HeroSectionProps) {
   return (
-    <section className="max-h-[640px] sm:max-h-[768px] h-screen grid overflow-hidden relative">
+    <section className="h-screen grid overflow-hidden relative">
       <div className="absolute inset-0 z-[-1]">
         <ImageWithFallback
           src={destination.image_url}

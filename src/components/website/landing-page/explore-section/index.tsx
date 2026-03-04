@@ -40,9 +40,9 @@ export default async function ExploreSection() {
           )}
         </div>
 
-        <Link href={"/packages"} className="w-max mx-auto mt-10">
+        <Link href={"/destinations"} className="w-max mx-auto mt-10">
           <Button>
-            Explore Packages
+            Explore Destinations
             <Icon icon={"ep:right"} width="24" />
           </Button>
         </Link>
