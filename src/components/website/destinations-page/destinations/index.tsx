@@ -11,11 +11,29 @@ export default async function Destinations({
   const { search } = await searchParams;
 
   // Fetch all active destinations
-  const { data: allDestinations, error } = await supabase
-    .from("destinations")
-    .select("*")
-    .eq("is_active", true)
-    .order("created_at", { ascending: false });
+  let allDestinations: any[] | null = null;
+  let error: any = null;
+  {
+    const q = supabase
+      .from("destinations")
+      .select("*")
+      .eq("is_active", true)
+      .order("order_index", { ascending: true, nullsFirst: false })
+      .order("name", { ascending: true });
+    const res = await q;
+    if (res.error && /order_index/i.test(res.error.message || "")) {
+      const fb = await supabase
+        .from("destinations")
+        .select("*")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+      allDestinations = fb.data || [];
+      error = fb.error || null;
+    } else {
+      allDestinations = res.data || [];
+      error = res.error || null;
+    }
+  }
 
   if (error) {
     console.error("Error fetching destinations:", error);
@@ -33,7 +51,7 @@ export default async function Destinations({
         dest.description?.toLowerCase().includes(searchLower) ||
         dest.why_visit_description?.toLowerCase().includes(searchLower) ||
         dest.experiences?.some((exp) =>
-          exp?.name?.toLowerCase().includes(searchLower)
+          exp?.name?.toLowerCase().includes(searchLower),
         )
       );
     });

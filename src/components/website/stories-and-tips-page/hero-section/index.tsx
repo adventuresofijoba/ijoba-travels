@@ -43,10 +43,10 @@ export default function HeroSection() {
   const totalPages = Math.ceil(totalStories / ITEMS_PER_PAGE);
 
   return (
-    <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 sm:py-20">
+    <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-28 sm:py-40">
       <div className="container mx-auto grid gap-10">
         <div className="text-center max-w-3xl mx-auto grid gap-5">
-          <h1 className="font-playfair-display text-6xl font-semibold max-w-md mx-auto">
+          <h1 className="font-playfair-display text-4xl sm:text-5xl font-semibold max-w-md mx-auto">
             Travel Stories & Tips{" "}
           </h1>
           <p className="text-lg">

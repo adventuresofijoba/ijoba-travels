@@ -64,7 +64,7 @@ function HeaderVariant1({
   return (
     <header className="px-layout-spacing-xs sm:px-layout-spacing-sm z-50 py-5 md:py-10 grid w-full transition-all duration-300 absolute top-0 bg-transparent">
       <div className="container mx-auto grid grid-flow-col items-center justify-between">
-        <Logo variant="white" />
+        <Logo variant="white" className="w-40 sm:w-48" />
         <button
           onClick={toggleMobileMenu}
           className="md:hidden relative z-50 w-6 h-4 top-1"
@@ -100,9 +100,9 @@ function HeaderVariant2({
   toggleMobileMenu: () => void;
 }) {
   return (
-    <header className="px-layout-spacing-xs sm:px-layout-spacing-sm z-50 py-4 md:py-4 grid w-full transition-all duration-300 sticky top-0 left-0 right-0 bg-[#F5E8C7] shadow-sm">
+    <header className="px-layout-spacing-xs sm:px-layout-spacing-sm z-50 py-4 md:py-4 grid w-full transition-all duration-300 fixed top-0 left-0 right-0 bg-[#F5E8C7] shadow-sm">
       <div className="container mx-auto grid grid-flow-col items-center justify-between">
-        <Logo variant="black" />
+        <Logo variant="black" className="w-40 sm:w-48" />
         <button
           onClick={toggleMobileMenu}
           className="md:hidden relative z-50 w-6 h-4 top-1"

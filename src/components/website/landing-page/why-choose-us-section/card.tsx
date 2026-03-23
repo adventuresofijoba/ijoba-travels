@@ -8,7 +8,7 @@ interface CardProps {
 
 export default function Card({ icon, title, description }: CardProps) {
   return (
-    <div className="bg-[#F8EFD8] rounded-xl overflow-hidden grid grid-rows-[1fr_auto] w-full p-5 gap-10">
+    <div className="bg-[#F8EFD8] rounded-xl overflow-hidden grid grid-rows-[auto_1fr] w-full p-5 gap-10">
       <span className="grid place-content-center w-12 h-12 rounded-full bg-[#F4A261]">
         {icon}
       </span>

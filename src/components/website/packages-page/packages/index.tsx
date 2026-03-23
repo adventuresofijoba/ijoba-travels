@@ -21,10 +21,7 @@ export default async function Packages({
   const budgetMinParam = params?.budget_min;
   const budgetMaxParam = params?.budget_max;
 
-  let query = supabase
-    .from("packages")
-    .select("*")
-    .order("title", { ascending: true });
+  let query = supabase.from("packages").select("*");
 
   if (destination) {
     // We need to filter by destination name
@@ -80,7 +77,14 @@ export default async function Packages({
     }
   }
 
-  const { data: packages, error } = await query;
+  let { data: packages, error } = await query
+    .order("order_index", { ascending: true, nullsFirst: false })
+    .order("title", { ascending: true });
+  if (error && /order_index/i.test(error.message || "")) {
+    const fallback = await query.order("title", { ascending: true });
+    packages = fallback.data || [];
+    error = fallback.error || null;
+  }
 
   if (error) {
     console.error("Error fetching packages:", error);

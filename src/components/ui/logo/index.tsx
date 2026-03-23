@@ -16,7 +16,7 @@ export function Logo({ variant, className }: LogoProps) {
   return (
     <Link
       href={"/"}
-      className={`relative grid aspect-[1/0.2] ${className || "w-60"}`}
+      className={`relative grid aspect-[1/0.2] ${className || "w-48"}`}
     >
       <Image
         src={logoSrc}

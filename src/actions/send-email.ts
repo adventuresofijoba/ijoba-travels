@@ -2,7 +2,8 @@
 
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
 interface EmailData {
   type: "contact" | "custom_package" | "package_reserve" | "newsletter";
@@ -66,6 +67,12 @@ export async function sendEmail(data: EmailData) {
   }
 
   try {
+    if (!resend) {
+      return {
+        success: false,
+        error: "RESEND_API_KEY not configured",
+      };
+    }
     const { data: emailData, error } = await resend.emails.send({
       from: "Ijoba Travels <onboarding@resend.dev>",
       to: [process.env.RECEIVING_EMAIL || "devsenpai09@gmail.com"],
@@ -87,6 +94,12 @@ export async function sendEmail(data: EmailData) {
 
 export async function sendWelcomeEmail(email: string) {
   try {
+    if (!resend) {
+      return {
+        success: false,
+        error: "RESEND_API_KEY not configured",
+      };
+    }
     const { data, error } = await resend.emails.send({
       from: "Ijoba Travels <onboarding@resend.dev>",
       to: [email],

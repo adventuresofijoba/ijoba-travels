@@ -75,10 +75,10 @@ export default async function HeroSection() {
   const filterData = await getFilterData();
 
   return (
-    <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 sm:py-20">
+    <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-28 sm:py-56">
       <div className="container mx-auto grid gap-10">
         <div className="text-center max-w-3xl mx-auto grid gap-5">
-          <h1 className="font-playfair-display text-5xl sm:text-6xl font-semibold">
+          <h1 className="font-playfair-display text-4xl sm:text-5xl font-semibold">
             Unforgettable <span className="italic">experiences</span>, tailored
             for you.
           </h1>

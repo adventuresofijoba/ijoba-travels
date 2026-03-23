@@ -28,7 +28,7 @@ export default function Card({ destination }: CardProps) {
           {/* Assuming name includes country or is country name */}
           <div className="grid grid-cols-[auto_1fr] items-center gap-2">
             <Icon icon={"lucide:map-pin"} width="24" className="text-primary" />
-            <span className="font-medium">{destination.name}</span>
+            <span className="font-bold text-lg">{destination.name}</span>
           </div>
 
           {/* Destination Name and Description  */}

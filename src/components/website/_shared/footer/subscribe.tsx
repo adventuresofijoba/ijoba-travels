@@ -14,7 +14,9 @@ export default function Subscribe() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email) {
+    const normalizedEmail = email.trim();
+
+    if (!normalizedEmail) {
       toast.error("Please enter your email address.");
       return;
     }
@@ -22,23 +24,46 @@ export default function Subscribe() {
     setLoading(true);
 
     try {
+      const res = await fetch("/api/inquiries/newsletter-exists", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: normalizedEmail }),
+      });
+      if (res.ok) {
+        const { exists } = await res.json();
+        if (exists) {
+          toast.info("This email is already subscribed.");
+          setLoading(false);
+          return;
+        }
+      }
+
       const { error } = await supabase.from("inquiries").insert({
-        email,
+        email: normalizedEmail,
         full_name: "Newsletter Subscriber", // Required field in schema
         inquiry_type: "newsletter",
         status: "unresolved",
       });
 
-      if (error) throw error;
+      if (error) {
+        const msg = String(error.message || "");
+        const code = (error as any).code;
+        if (code === "23505" || /duplicate key/i.test(msg)) {
+          toast.info("This email is already subscribed.");
+          setEmail("");
+          return;
+        }
+        throw error;
+      }
 
       // Send email notification to admin
       await sendEmail({
         type: "newsletter",
-        email,
+        email: normalizedEmail,
       });
 
       // Send welcome email to subscriber
-      await sendWelcomeEmail(email);
+      await sendWelcomeEmail(normalizedEmail);
 
       toast.success("Thank you for subscribing!");
       setEmail("");
@@ -67,7 +92,7 @@ export default function Subscribe() {
           placeholder="Enter email"
           className="outline-none px-5 w-full placeholder:text-black bg-transparent"
         />
-        <Button disabled={loading}>
+        <Button disabled={loading} className="w-20">
           {loading ? (
             <Icon
               icon="eos-icons:loading"
