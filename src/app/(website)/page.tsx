@@ -5,7 +5,6 @@ import FaqSection from "@/components/website/landing-page/faq";
 import HeroSection from "@/components/website/landing-page/hero-section";
 import TravelStoriesSection from "@/components/website/landing-page/travel-stories";
 import WhyChooseUsSection from "@/components/website/landing-page/why-choose-us-section";
-import React from "react";
 
 export default function Page() {
   return (

@@ -1,10 +1,11 @@
-import React from "react";
 import Card from "./card";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { Destination } from "@/types";
+
+export const dynamic = "force-dynamic";
 
 export default async function ExploreSection() {
   let destinations: any[] | null = null;
