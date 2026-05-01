@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Package } from "@/types";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
+import { Calendar, Clock, MapPinIcon } from "lucide-react";
 
 interface PackagesCardProps {
   packageData: Package & { destinations?: { name: string } };
@@ -24,9 +25,17 @@ export default function PackagesCard({ packageData }: PackagesCardProps) {
       </span>
 
       <div className="grid gap-5 p-5 grid-rows-[auto_1fr_auto]">
-        <div className="text-sm font-medium text-muted-foreground">
-          {destinationName ? `${destinationName} - ` : ""}
-          {packageData.duration_days} days
+        <div className="text-sm font-medium text-muted-foreground flex justify-between items-center">
+          <div className="flex items-center gap-1">
+            <Clock size={16} />
+            {packageData.duration_days} days
+          </div>
+          {packageData.package_date && (
+            <div className="flex items-center gap-1">
+              <Calendar size={16} />
+              {packageData.package_date}
+            </div>
+          )}
         </div>
 
         <div className="grid gap-3 content-start">

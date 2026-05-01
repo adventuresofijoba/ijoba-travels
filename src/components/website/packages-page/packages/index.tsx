@@ -21,7 +21,7 @@ export default async function Packages({
   const budgetMinParam = params?.budget_min;
   const budgetMaxParam = params?.budget_max;
 
-  let query = supabase.from("packages").select("*");
+  let query = supabase.from("packages").select("*").eq("is_active", true);
 
   if (destination) {
     // We need to filter by destination name

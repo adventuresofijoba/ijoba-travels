@@ -18,6 +18,7 @@ export default async function Page({
     .from("packages")
     .select("*")
     .eq("id", id)
+    .eq("is_active", true)
     .single();
 
   if (!pkg) {

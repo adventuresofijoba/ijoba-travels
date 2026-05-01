@@ -6,11 +6,13 @@ async function getFilterData() {
   const { data: destinations } = await supabase
     .from("destinations")
     .select("name")
+    .eq("is_active", true)
     .order("name");
 
   const { data: packages } = await supabase
     .from("packages")
-    .select("price, duration_days");
+    .select("price, duration_days")
+    .eq("is_active", true);
 
   // Process destinations
   const processedDestinations = destinations?.map((d) => d.name) || [];
@@ -37,7 +39,7 @@ async function getFilterData() {
 
     for (let i = start; i < end; i += step) {
       budgetRanges.push(
-        `₦${i.toLocaleString()} - ₦${(i + step).toLocaleString()}`
+        `₦${i.toLocaleString()} - ₦${(i + step).toLocaleString()}`,
       );
     }
   }
@@ -75,7 +77,7 @@ export default async function HeroSection() {
   const filterData = await getFilterData();
 
   return (
-    <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-28 sm:py-56">
+    <section className="px-layout-spacing-xs sm:px-layout-spacing-sm pt-28 sm:pt-56">
       <div className="container mx-auto grid gap-10">
         <div className="text-center max-w-3xl mx-auto grid gap-5">
           <h1 className="font-playfair-display text-4xl sm:text-5xl font-semibold">

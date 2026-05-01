@@ -34,7 +34,8 @@ export default async function Page({
     const { data } = await supabase
       .from("packages")
       .select("*")
-      .in("id", destination.recommended_packages);
+      .in("id", destination.recommended_packages)
+      .eq("is_active", true);
     packages = data || [];
   }
 

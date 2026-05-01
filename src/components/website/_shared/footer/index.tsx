@@ -85,7 +85,7 @@ export default function Footer({ hideSubscribe }: { hideSubscribe?: boolean }) {
             </div>
           </div>
           <p className="text-center text-sm">
-            © 2024 Adventures of Ijoba. All rights reserved
+            © 2026 Adventures of Ijoba. All rights reserved
           </p>
         </div>
       </div>
