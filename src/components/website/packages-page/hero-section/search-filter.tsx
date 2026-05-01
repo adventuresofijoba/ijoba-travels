@@ -15,14 +15,17 @@ interface SearchFilterProps {
 }
 
 export default function SearchFilter({
-  destinations = [],
   budgets = [],
   durations = [],
 }: SearchFilterProps) {
   const [activeFilter, setActiveFilter] = useState<FilterType>(null);
+  const [inputValue, setInputValue] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const selectedDestination = searchParams.get("destination");
 
   const selectedBudgetMinParam = searchParams.get("budget_min");
   const selectedBudgetMaxParam = searchParams.get("budget_max");
@@ -37,25 +40,36 @@ export default function SearchFilter({
     selectedBudgetMinParam !== null
       ? parseInt(selectedBudgetMinParam, 10)
       : parsedFromRange && !isNaN(parsedFromRange[0])
-      ? parsedFromRange[0]
-      : undefined;
+        ? parsedFromRange[0]
+        : undefined;
   const initialMax =
     selectedBudgetMaxParam !== null
       ? parseInt(selectedBudgetMaxParam, 10)
       : parsedFromRange && parsedFromRange[1] && !isNaN(parsedFromRange[1])
-      ? parsedFromRange[1]
-      : undefined;
+        ? parsedFromRange[1]
+        : undefined;
   const [budgetMin, setBudgetMin] = useState<number | undefined>(initialMin);
   const [budgetMax, setBudgetMax] = useState<number | undefined>(initialMax);
 
+  // Sync inputValue with URL param on mount
+  useEffect(() => {
+    if (selectedDestination) {
+      setInputValue(selectedDestination);
+    } else {
+      setInputValue("");
+    }
+  }, [selectedDestination]);
+
   const toggleFilter = (filter: FilterType) => {
     setActiveFilter(activeFilter === filter ? null : filter);
+    if (filter === "destination") {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
   };
 
   const handleFilterSelect = (type: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    // Toggle: if clicking the same value, remove it
     if (params.get(type) === value) {
       params.delete(type);
     } else {
@@ -66,7 +80,33 @@ export default function SearchFilter({
     setActiveFilter(null);
   };
 
-  const selectedDestination = searchParams.get("destination");
+  const applyDestination = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (inputValue.trim()) {
+      params.set("destination", inputValue.trim());
+    } else {
+      params.delete("destination");
+    }
+    router.push(`/packages?${params.toString()}`);
+    setActiveFilter(null);
+  };
+
+  const clearDestination = () => {
+    setInputValue("");
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("destination");
+    router.push(`/packages?${params.toString()}`);
+    setActiveFilter(null);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (activeFilter === "destination" && e.key === "Enter") {
+      applyDestination();
+    } else if (e.key === "Escape") {
+      setActiveFilter(null);
+    }
+  };
+
   const selectedBudgetText =
     budgetMin || budgetMax
       ? `${budgetMin ? `₦${budgetMin.toLocaleString()}` : ""}${
@@ -125,7 +165,7 @@ export default function SearchFilter({
       className="flex flex-col gap-2.5 items-center w-full max-w-[650px] mx-auto relative"
     >
       {/* Search Bar */}
-      <div className="bg-[#F8EFD8] rounded-full px-4 sm:px-8 py-2.5 sm:py-5 flex items-center justify-between gap-2.5 sm:gap-5 w-full shadow-sm">
+      <div className="bg-[#F8EFD8] rounded-full px-4 sm:px-8 py-2.5 sm:py-5 flex items-center justify-between gap-2.5 sm:gap-5 w-full shadow-sm text-[#2D2D2D]">
         {/* Destination Trigger */}
         <button
           onClick={() => toggleFilter("destination")}
@@ -133,10 +173,10 @@ export default function SearchFilter({
         >
           <span
             className={cn(
-              "font-lato text-base transition-colors",
+              "font-lato text-base transition-colors truncate",
               selectedDestination
                 ? "text-primary font-medium"
-                : "text-[#2D2D2D] group-hover:text-primary"
+                : "text-[#2D2D2D] group-hover:text-primary",
             )}
           >
             {selectedDestination || "Destination"}
@@ -146,8 +186,8 @@ export default function SearchFilter({
             width="20"
             height="20"
             className={cn(
-              "transition-transform duration-200 text-[#2D2D2D] group-hover:text-primary",
-              activeFilter === "destination" ? "rotate-180" : ""
+              "transition-transform duration-200 text-[#2D2D2D] group-hover:text-primary shrink-0",
+              activeFilter === "destination" ? "rotate-180" : "",
             )}
           />
         </button>
@@ -162,7 +202,7 @@ export default function SearchFilter({
               "font-lato text-base transition-colors",
               selectedBudgetText
                 ? "text-primary font-medium"
-                : "text-[#2D2D2D] group-hover:text-primary"
+                : "text-[#2D2D2D] group-hover:text-primary",
             )}
           >
             {selectedBudgetText || "Budget"}
@@ -173,7 +213,7 @@ export default function SearchFilter({
             height="20"
             className={cn(
               "transition-transform duration-200 text-[#2D2D2D] group-hover:text-primary",
-              activeFilter === "budget" ? "rotate-180" : ""
+              activeFilter === "budget" ? "rotate-180" : "",
             )}
           />
         </button>
@@ -188,7 +228,7 @@ export default function SearchFilter({
               "font-lato text-base transition-colors",
               selectedDuration
                 ? "text-primary font-medium"
-                : "text-[#2D2D2D] group-hover:text-primary"
+                : "text-[#2D2D2D] group-hover:text-primary",
             )}
           >
             {selectedDuration || "Duration"}
@@ -199,7 +239,7 @@ export default function SearchFilter({
             height="20"
             className={cn(
               "transition-transform duration-200 text-[#2D2D2D] group-hover:text-primary",
-              activeFilter === "duration" ? "rotate-180" : ""
+              activeFilter === "duration" ? "rotate-180" : "",
             )}
           />
         </button>
@@ -222,35 +262,41 @@ export default function SearchFilter({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-5"
+                className="grid gap-4"
               >
-                {destinations.map((destination) => (
+                <div className="grid gap-2">
+                  <label className="text-sm font-medium">Destination</label>
+                  <div className="flex items-center gap-2 bg-white/50 rounded-md px-3 py-2">
+                    <Icon
+                      icon="solar:map-point-linear"
+                      className="text-[#2D2D2D]/50"
+                      width="20"
+                    />
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      placeholder="e.g. Kyoto, Japan"
+                      className="w-full bg-transparent outline-none text-[#2D2D2D]"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center justify-end gap-3">
                   <button
-                    key={destination}
-                    onClick={() =>
-                      handleFilterSelect("destination", destination)
-                    }
-                    className={cn(
-                      "flex items-center justify-between group p-3 rounded-lg transition-all",
-                      selectedDestination === destination
-                        ? "bg-primary text-white"
-                        : "bg-white/50 hover:bg-white text-[#2D2D2D]"
-                    )}
+                    onClick={clearDestination}
+                    className="px-4 py-2 rounded-md bg-white/50 hover:bg-white text-[#2D2D2D] transition"
                   >
-                    <span className="font-lato text-sm">{destination}</span>
-                    {selectedDestination === destination ? (
-                      <Icon icon="akar-icons:check" width="12" />
-                    ) : (
-                      <div className="w-5 h-5 bg-white group-hover:bg-[#F8EFD8] rounded-full flex items-center justify-center transition-colors">
-                        <Icon
-                          icon="ep:right"
-                          width="12"
-                          className="text-black"
-                        />
-                      </div>
-                    )}
+                    Clear
                   </button>
-                ))}
+                  <button
+                    onClick={applyDestination}
+                    className="px-4 py-2 rounded-md bg-primary text-white hover:bg-primary/90 transition"
+                  >
+                    Apply
+                  </button>
+                </div>
               </motion.div>
             )}
 
@@ -276,7 +322,7 @@ export default function SearchFilter({
                           setBudgetMin(
                             e.target.value === ""
                               ? undefined
-                              : parseInt(e.target.value, 10)
+                              : parseInt(e.target.value, 10),
                           )
                         }
                         className="w-full bg-transparent outline-none"
@@ -296,7 +342,7 @@ export default function SearchFilter({
                           setBudgetMax(
                             e.target.value === ""
                               ? undefined
-                              : parseInt(e.target.value, 10)
+                              : parseInt(e.target.value, 10),
                           )
                         }
                         className="w-full bg-transparent outline-none"
@@ -339,7 +385,7 @@ export default function SearchFilter({
                       "flex items-center justify-between group p-3 rounded-lg transition-all",
                       selectedDuration === duration
                         ? "bg-primary text-white"
-                        : "bg-white/50 hover:bg-white text-[#2D2D2D]"
+                        : "bg-white/50 hover:bg-white text-[#2D2D2D]",
                     )}
                   >
                     <span className="font-lato text-sm">{duration}</span>
