@@ -27,14 +27,28 @@ export default async function Page({
   }
 
   let packages: Package[] = [];
-  if (
-    destination.recommended_packages &&
-    destination.recommended_packages.length > 0
-  ) {
+  let recommendedIds: string[] = [];
+
+  if (destination.recommended_packages) {
+    if (Array.isArray(destination.recommended_packages)) {
+      recommendedIds = destination.recommended_packages;
+    } else if (typeof destination.recommended_packages === "string") {
+      try {
+        recommendedIds = JSON.parse(destination.recommended_packages);
+      } catch (e) {
+        // Handle comma separated string just in case
+        recommendedIds = destination.recommended_packages
+          .split(",")
+          .map((s: string) => s.trim());
+      }
+    }
+  }
+
+  if (recommendedIds.length > 0) {
     const { data } = await supabase
       .from("packages")
       .select("*")
-      .in("id", destination.recommended_packages)
+      .in("id", recommendedIds)
       .eq("is_active", true);
     packages = data || [];
   }

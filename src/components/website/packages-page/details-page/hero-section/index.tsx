@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { sendEmail } from "@/actions/send-email";
+import { Calendar, Clock } from "lucide-react";
 
 interface HeroSectionProps {
   pkg: Package;
@@ -31,7 +32,7 @@ export default function HeroSection({ pkg }: HeroSectionProps) {
 
   return (
     <>
-      <section className="px-layout-spacing-xs sm:px-layout-spacing-sm py-10 lg:py-20">
+      <section className="px-layout-spacing-xs sm:px-layout-spacing-sm pt-20 py-10 lg:py-20 lg:pt-40">
         <div className="container mx-auto flex flex-col-reverse lg:flex-row gap-5 sm:gap-10">
           {/* Content Side */}
           <div className="w-full lg:w-1/2 flex flex-col lg:self-center gap-[30px] lg:pr-[20px]">
@@ -45,17 +46,27 @@ export default function HeroSection({ pkg }: HeroSectionProps) {
             </div>
 
             <div className="flex flex-col gap-[30px]">
-              {/* Date Badge */}
-              <div className="flex items-center gap-[10px] w-fit">
-                <Icon
-                  icon="solar:calendar-linear"
-                  className="text-[#2D2D2D]"
-                  width="24"
-                  height="24"
-                />
-                <span className="font-lato text-base text-[#2D2D2D]">
-                  {dateDisplay}
-                </span>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1 font-semibold text-2xl">
+                  <span>₦</span>
+                  <span>{pkg.price?.toLocaleString()}</span>
+                </div>
+
+                <div className="flex items-center gap-5">
+                  <div className="flex items-center gap-2">
+                    <Calendar size={20} />
+                    <span className="font-lato text-sm text-[#2D2D2D]">
+                      {pkg.package_date}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Clock size={20} />
+                    <span className="font-lato text-sm text-[#2D2D2D]">
+                      {dateDisplay}
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Book Button */}
@@ -104,7 +115,7 @@ function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -148,7 +159,7 @@ function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
       // Send to WhatsApp
       const whatsappMessage = `Hello, I would like to reserve a package.\n\nPackage: ${pkg.title}\nName: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nMessage: ${formData.message}`;
       const whatsappUrl = `https://wa.me/447470524596?text=${encodeURIComponent(
-        whatsappMessage
+        whatsappMessage,
       )}`;
       window.open(whatsappUrl, "_blank");
 

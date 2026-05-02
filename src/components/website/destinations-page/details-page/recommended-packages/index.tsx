@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,15 +14,13 @@ interface PackageCardProps {
 
 const PackageCard = ({ pkg, reversed }: PackageCardProps) => {
   // Extract highlights from features - flatten all points from all features and take first 4
-  const highlights = pkg.features
-    .flatMap((feature) => feature.points)
-    .slice(0, 4);
+  const highlights = pkg.features.flatMap((feature) => feature.title);
 
   return (
     <div
       className={cn(
         "flex flex-col lg:flex-row gap-6 lg:gap-[60px]",
-        reversed ? "lg:flex-row-reverse" : ""
+        reversed ? "lg:flex-row-reverse" : "",
       )}
     >
       {/* Image Side */}

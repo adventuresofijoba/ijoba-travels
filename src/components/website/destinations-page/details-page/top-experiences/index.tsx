@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import { Destination } from "@/types";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
+import clsx from "clsx";
 
 interface TopExperiencesProps {
   destination: Destination;
@@ -14,7 +15,7 @@ export default function TopExperiences({ destination }: TopExperiencesProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const experiences = (destination.experiences || []).filter(
-    (exp) => exp && exp.name && exp.image_url
+    (exp) => exp && exp.name && exp.image_url,
   );
 
   if (experiences.length === 0) {
@@ -33,7 +34,7 @@ export default function TopExperiences({ destination }: TopExperiencesProps) {
 
   const prevSlide = () => {
     setCurrentIndex(
-      (prev) => (prev - 1 + experiences.length) % experiences.length
+      (prev) => (prev - 1 + experiences.length) % experiences.length,
     );
   };
 
@@ -41,13 +42,22 @@ export default function TopExperiences({ destination }: TopExperiencesProps) {
     <section className="bg-[#F5E8C7] px-layout-spacing-xs sm:px-layout-spacing-sm py-10 lg:py-20">
       <div className="container mx-auto flex flex-col gap-5">
         {/* Main Image Card */}
-        <div className="relative w-full h-[370px] lg:h-auto lg:aspect-[1271/592] rounded-xl overflow-hidden bg-[#E0E0E0] group">
-          <ImageWithFallback
-            src={currentExperience.image_url}
-            alt={currentExperience.name}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+        <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-[#E0E0E0] group">
+          {experiences.map((exp, index) => (
+            <ImageWithFallback
+              key={index}
+              src={exp.image_url}
+              alt={exp.name}
+              fill
+              className={clsx(
+                "object-cover transition duration-500 group-hover:scale-105",
+                currentExperience.name === exp.name
+                  ? "opacity-100"
+                  : "opacity-0",
+              )}
+            />
+          ))}
+
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/30" />
 
@@ -82,7 +92,7 @@ export default function TopExperiences({ destination }: TopExperiencesProps) {
                     "h-full transition-all duration-300 bg-[#F4A261] mr-1 rounded-full",
                     currentIndex === index
                       ? "flex-1 h-1.5 lg:w-[92px] lg:flex-none"
-                      : "flex-1 h-0.5 lg:w-[92px] lg:flex-none opacity-50 hover:opacity-100 hover:h-1"
+                      : "flex-1 h-0.5 lg:w-[92px] lg:flex-none opacity-50 hover:opacity-100 hover:h-1",
                   )}
                   aria-label={`Go to slide ${index + 1}`}
                 />
