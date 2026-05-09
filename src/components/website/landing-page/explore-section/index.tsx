@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Destinations from "./destinations";
+import { Suspense } from "react";
+import DestinationsSkeleton from "./skeleton";
 
 export default async function ExploreSection() {
   return (
@@ -16,7 +18,9 @@ export default async function ExploreSection() {
           </p>
         </div>
 
-        <Destinations />
+        <Suspense fallback={<DestinationsSkeleton />}>
+          <Destinations />
+        </Suspense>
 
         <Link href={"/destinations"} className="w-max mx-auto mt-10">
           <Button>

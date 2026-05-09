@@ -6,6 +6,32 @@ import Timeline from "@/components/website/packages-page/details-page/timeline";
 import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import React from "react";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const { data: pkg } = await supabase
+    .from("packages")
+    .select("title, description, image_urls")
+    .eq("id", id)
+    .single();
+
+  if (!pkg) return { title: "Package Not Found" };
+
+  return {
+    title: `${pkg.title} | Ijoba Travels`,
+    description: pkg.description || `Book ${pkg.title} with Ijoba Travels.`,
+    openGraph: {
+      title: `${pkg.title} | Ijoba Travels`,
+      description: pkg.description || `Book ${pkg.title} with Ijoba Travels.`,
+      images: pkg.image_urls?.[0] ? [pkg.image_urls[0]] : [],
+    },
+  };
+}
 
 export default async function Page({
   params,

@@ -8,6 +8,36 @@ import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import { Package } from "@/types";
 import React from "react";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const { data: destination } = await supabase
+    .from("destinations")
+    .select("name, description, image_url")
+    .eq("id", id)
+    .single();
+
+  if (!destination) return { title: "Destination Not Found" };
+
+  return {
+    title: `${destination.name} | Ijoba Travels`,
+    description:
+      destination.description ||
+      `Explore ${destination.name} with Ijoba Travels.`,
+    openGraph: {
+      title: `${destination.name} | Ijoba Travels`,
+      description:
+        destination.description ||
+        `Explore ${destination.name} with Ijoba Travels.`,
+      images: destination.image_url ? [destination.image_url] : [],
+    },
+  };
+}
 
 export default async function Page({
   params,

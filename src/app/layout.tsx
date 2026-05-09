@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
+import WhatsAppFAB from "@/components/website/_shared/whatsapp-fab";
 
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
