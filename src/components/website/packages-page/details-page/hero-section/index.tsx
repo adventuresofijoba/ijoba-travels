@@ -46,10 +46,12 @@ export default function HeroSection({ pkg }: HeroSectionProps) {
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-lg font-medium bg-[#F5E8C7] hover:bg-[#F5E8C7] text-[#2D2D2D]">
-              <Plane className="w-8" />
-              Flight Inclusive
-            </div>
+            {pkg.is_flight_inclusive && (
+              <div className="flex items-center gap-2 text-lg font-medium bg-[#F5E8C7] hover:bg-[#F5E8C7] text-[#2D2D2D]">
+                <Plane className="w-8" />
+                Flight Inclusive
+              </div>
+            )}
 
             <div className="flex flex-col gap-[30px]">
               <div className="flex items-center justify-between gap-2">
