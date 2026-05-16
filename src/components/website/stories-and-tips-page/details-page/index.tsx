@@ -23,6 +23,8 @@ export default function DetailsPage({ story }: DetailsPageProps) {
         day: "numeric",
       });
 
+  console.log(story);
+
   return (
     <div className="grid gap-10 sm:gap-20 py-10 sm:py-20 justify-items-center w-full max-w-4xl mx-auto px-layout-spacing-xs sm:px-layout-spacing-sm">
       {/* Title Section */}
@@ -52,41 +54,6 @@ export default function DetailsPage({ story }: DetailsPageProps) {
           className="font-lato text-lg text-[#2D2D2D] leading-[1.38] prose max-w-none"
           dangerouslySetInnerHTML={{ __html: story.content }}
         />
-      </div>
-
-      <div className="flex items-center gap-5 mx-auto sm:mx-0">
-        <Link
-          href={"https://wa.me/+447470524596"}
-          target="_blank"
-          className="hover:opacity-50 transition-all"
-        >
-          <Icon icon={"mage:whatsapp-filled"} width="32" color="#F4A261" />
-        </Link>
-        <Link
-          href={"https://www.instagram.com/ijoba.travel"}
-          target="_blank"
-          className="hover:opacity-50 transition-all"
-        >
-          <Icon icon={"mage:instagram-circle"} width="32" color="#F4A261" />
-        </Link>
-        <Link
-          href={"https://www.youtube.com/@adventuresofijoba"}
-          target="_blank"
-          className="hover:opacity-50 transition-all"
-        >
-          <Icon
-            icon={"entypo-social:youtube-with-circle"}
-            width="32"
-            color="#F4A261"
-          />
-        </Link>
-        <Link
-          href={"https://www.tiktok.com/@ijoba.travel"}
-          target="_blank"
-          className="hover:opacity-50 transition-all"
-        >
-          <Icon icon={"mage:tiktok-circle"} width="32" color="#F4A261" />
-        </Link>
       </div>
     </div>
   );

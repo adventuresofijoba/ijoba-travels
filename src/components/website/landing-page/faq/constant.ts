@@ -28,6 +28,10 @@ export const FAQS = [
     ans: "Absolutely! We love helping travelers design personalized itineraries that match their interests, budgets, and timelines. Just let us know your preferences.",
   },
   {
+    ques: "Can I pay in installments?",
+    ans: "Yes. You can secure your booking with an initial deposit, and the balance may be paid in agreed installments before the final payment deadline.",
+  },
+  {
     ques: "How safe are your trips?",
     ans: "Your safety is our priority. We partner with trusted service providers, follow local regulations, and keep you updated with travel advisories. We also recommend travel insurance for extra peace of mind.",
   },

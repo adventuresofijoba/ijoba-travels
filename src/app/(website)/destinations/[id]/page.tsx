@@ -1,13 +1,12 @@
 import Footer from "@/components/website/_shared/footer";
 import Header from "@/components/website/_shared/header";
 import HeroSection from "@/components/website/destinations-page/details-page/hero-section";
-import RecommendedPackages from "@/components/website/destinations-page/details-page/recommended-packages";
+import RecommendedPackages from "@/components/website/_shared/recommended-packages";
 import TopExperiences from "@/components/website/destinations-page/details-page/top-experiences";
 import WhyVisit from "@/components/website/destinations-page/details-page/why-visit";
 import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import { Package } from "@/types";
-import React from "react";
 import { Metadata } from "next";
 
 export async function generateMetadata({

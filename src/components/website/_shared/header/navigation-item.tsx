@@ -18,7 +18,6 @@ export default function NavigationItem({
   variant,
 }: NavigationItemProps) {
   const path = usePathname();
-  console.log(path);
 
   return (
     <Link
@@ -30,7 +29,7 @@ export default function NavigationItem({
           : "text-white after:bg-white",
         matcher.includes(path)
           ? "font-bold after:opacity-100"
-          : "after:transition-all after:w-0 hover:after:w-full hover:after:opacity-100 after:opacity-0"
+          : "after:transition-all after:w-0 hover:after:w-full hover:after:opacity-100 after:opacity-0",
       )}
     >
       {title}

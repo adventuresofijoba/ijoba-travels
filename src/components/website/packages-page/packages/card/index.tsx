@@ -3,7 +3,14 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Package } from "@/types";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
-import { Calendar, Clock, MapPin, MapPinIcon, PackageIcon } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  MapPinIcon,
+  PackageIcon,
+  Plane,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface PackagesCardProps {
@@ -35,10 +42,19 @@ export default function PackagesCard({ packageData }: PackagesCardProps) {
               <PackageIcon className="h-10 w-10 opacity-20" />
             </div>
           )}
+
+          {packageData.is_flight_inclusive && (
+            <div className="absolute bottom-2 left-2">
+              <div className="flex items-center gap-2 text-sm font-medium bg-[#F5E8C7] hover:bg-[#F5E8C7] text-[#2D2D2D] px-2 py-1 rounded-full">
+                <Plane className="w-4" />
+                Flight Inclusive
+              </div>
+            </div>
+          )}
         </div>
         <div className="p-4 grid grid-rows-[auto_1fr] gap-4 flex-1">
           <CardHeader className="p-0">
-            <CardTitle className="text-xl line-clamp-1 text-[#2D2D2D]">
+            <CardTitle className="text-xl line-clamp-2 text-[#2D2D2D]">
               {packageData.title}
             </CardTitle>
             <div className="grid grid-flow-col gap-3 justify-between items-center">

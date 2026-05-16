@@ -9,7 +9,8 @@ import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { sendEmail } from "@/actions/send-email";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, Clock, Info, Plane } from "lucide-react";
+import clsx from "clsx";
 
 interface HeroSectionProps {
   pkg: Package;
@@ -45,6 +46,11 @@ export default function HeroSection({ pkg }: HeroSectionProps) {
               </p>
             </div>
 
+            <div className="flex items-center gap-2 text-lg font-medium bg-[#F5E8C7] hover:bg-[#F5E8C7] text-[#2D2D2D]">
+              <Plane className="w-8" />
+              Flight Inclusive
+            </div>
+
             <div className="flex flex-col gap-[30px]">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1 font-semibold text-2xl">
@@ -70,9 +76,16 @@ export default function HeroSection({ pkg }: HeroSectionProps) {
               </div>
 
               {/* Book Button */}
-              <Button onClick={() => setIsModalOpen(true)} className="w-max">
-                Make a Reservation
-              </Button>
+              <div className="grid gap-3">
+                <Button onClick={() => setIsModalOpen(true)} className="w-max">
+                  Make a Reservation
+                </Button>
+
+                <p className="max-w-sm">
+                  Secure your slot with a deposit from "₦500,000." Flexible
+                  installment plans available until final payment deadline.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -106,6 +119,9 @@ interface BookingModalProps {
 }
 
 function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
+  const inputClass =
+    "bg-secondary px-5 py-3 rounded-lg outline-none text-[#2D2D2D] w-full";
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -196,7 +212,7 @@ function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="bg-[#F8EFD8] w-full max-w-lg rounded-2xl p-6 sm:p-8 relative z-10 shadow-xl overflow-y-auto max-h-[90vh]"
+            className="bg-[#F5E8C7] w-full max-w-lg rounded-2xl p-5 sm:p-8 relative z-10 shadow-xl overflow-y-auto max-h-[95vh]"
           >
             <button
               onClick={onClose}
@@ -231,7 +247,7 @@ function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
                     value={formData.fullName}
                     onChange={handleChange}
                     placeholder="Enter your full name"
-                    className="bg-white px-4 py-3 rounded-lg outline-none text-[#2D2D2D] border border-transparent focus:border-[#2D2D2D]/20 transition-colors"
+                    className={inputClass}
                   />
                 </div>
 
@@ -250,7 +266,7 @@ function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your email"
-                    className="bg-white px-4 py-3 rounded-lg outline-none text-[#2D2D2D] border border-transparent focus:border-[#2D2D2D]/20 transition-colors"
+                    className={inputClass}
                   />
                 </div>
 
@@ -268,7 +284,7 @@ function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="Enter your phone number"
-                    className="bg-white px-4 py-3 rounded-lg outline-none text-[#2D2D2D] border border-transparent focus:border-[#2D2D2D]/20 transition-colors"
+                    className={inputClass}
                   />
                 </div>
 
@@ -285,24 +301,34 @@ function BookingModal({ isOpen, onClose, pkg }: BookingModalProps) {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Any specific requests or questions?"
-                    className="bg-white px-4 py-3 rounded-lg outline-none text-[#2D2D2D] border border-transparent focus:border-[#2D2D2D]/20 transition-colors resize-none min-h-[100px]"
+                    className={clsx("min-h-[120px]", inputClass)}
                   />
                 </div>
 
-                <Button
-                  type="submit"
-                  disabled={!formData.fullName || !formData.email || loading}
-                  className="mt-2 w-full"
-                >
-                  {loading ? (
-                    <Icon
-                      icon="eos-icons:loading"
-                      width="24"
-                      className="animate-spin"
-                    />
-                  ) : null}
-                  {loading ? "SENDING..." : "RESERVE"}
-                </Button>
+                <div className="grid gap-2">
+                  <Button
+                    type="submit"
+                    disabled={!formData.fullName || !formData.email || loading}
+                    className="mt-2 w-full"
+                  >
+                    {loading ? (
+                      <Icon
+                        icon="eos-icons:loading"
+                        width="24"
+                        className="animate-spin"
+                      />
+                    ) : null}
+                    {loading ? "SENDING..." : "RESERVE"}
+                  </Button>
+                  <div className="text-sm text-[#2D2D2D]/80 grid grid-cols-[auto_1fr] gap-2">
+                    <Info className="w-4" />
+                    <p>
+                      Submitting this form does not require full payment. Our
+                      team will contact you with deposit and payment plan
+                      options.
+                    </p>
+                  </div>
+                </div>
               </form>
             </div>
           </motion.div>

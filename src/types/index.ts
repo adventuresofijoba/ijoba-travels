@@ -28,6 +28,7 @@ export interface Package {
   package_date: string;
   image_urls: string[];
   is_featured: boolean;
+  is_flight_inclusive: boolean;
   is_active: boolean;
   timeline: {
     date: string;
