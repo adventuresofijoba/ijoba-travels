@@ -53,3 +53,16 @@ export interface Story {
   is_published: boolean;
   published_at?: string;
 }
+
+export interface Testimonial {
+  id: string;
+  created_at: string;
+  name: string;
+  destination: string;
+  trip_year: number;
+  quote: string;
+  photo_url: string | null;
+  status: "pending" | "approved" | "hidden";
+  source: "admin" | "form";
+  display_order: number;
+}

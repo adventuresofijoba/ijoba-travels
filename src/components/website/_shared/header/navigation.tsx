@@ -7,7 +7,7 @@ interface NavigationProps {
 
 export default function Navigation({ variant }: NavigationProps) {
   return (
-    <nav className="hidden md:grid grid-flow-col gap-5">
+    <nav className="hidden lg:grid grid-flow-col gap-5">
       <NavigationItem title="Home" url="/" matcher={["/"]} variant={variant} />
       <NavigationItem
         title="Destinations"
