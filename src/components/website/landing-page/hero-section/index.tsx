@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Search from "./search";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -14,8 +15,10 @@ export default function HeroSection() {
             Seamless travel, tailored adventures, and unforgettable memories
             <br />— your journey starts here.
           </p>
-          <Button className="w-max mx-auto">
-            View Packages <Icon icon={"ep:right"} width="16" />
+          <Button asChild className="w-max mx-auto">
+            <Link href="/packages">
+              View Packages <Icon icon={"ep:right"} width="16" />
+            </Link>
           </Button>
         </div>
         <Search />

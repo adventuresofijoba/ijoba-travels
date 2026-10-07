@@ -16,4 +16,9 @@
   body {
     @apply font-lato bg-[#F5E8C7] text-[#2D2D2D];
   }
+
+  /* Stop the page scrolling behind an open modal dialog */
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
 }

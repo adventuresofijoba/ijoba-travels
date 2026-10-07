@@ -67,7 +67,7 @@ function HeaderVariant1({
         <Logo variant="white" className="w-40 sm:w-48" />
         <button
           onClick={toggleMobileMenu}
-          className="md:hidden relative z-50 w-6 h-4 top-1"
+          className="lg:hidden relative z-50 w-6 h-4 top-1"
         >
           <motion.span
             className={cn("absolute h-0.5 w-full left-0", "bg-white")}
@@ -105,7 +105,7 @@ function HeaderVariant2({
         <Logo variant="black" className="w-40 sm:w-48" />
         <button
           onClick={toggleMobileMenu}
-          className="md:hidden relative z-50 w-6 h-4 top-1"
+          className="lg:hidden relative z-50 w-6 h-4 top-1"
         >
           <motion.span
             className={cn("absolute h-0.5 w-full left-0", "bg-black")}
